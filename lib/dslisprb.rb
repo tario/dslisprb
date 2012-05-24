@@ -4,6 +4,14 @@ class DsLisp
     class << self
       # arithmetic
       def +(a,b); a+b; end
+      def *(a,b); a*b; end
+      def /(a,b); a/b; end
+      def -(a,b); a-b; end
+
+      # relational
+      def <(a,b); a<b || nil; end
+      def >(a,b); a>b || nil; end
+      def eq(a,b); a==b || nil; end
       
       # list selectors
       def car(a); a.first; end
