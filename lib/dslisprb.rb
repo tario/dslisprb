@@ -1,9 +1,13 @@
 class DsLisp
   def parse(str)
-    if str =~ /^\s*\d+\s*$/
-      str.to_i
+    if matchdata = /^\s*\((.*)\)\s*$/.match(str)
+     [ parse(matchdata[1]) ]
     else
-      str.to_sym
+      if str =~ /^\s*\d+\s*$/
+        str.to_i
+      else
+        str.to_sym
+      end
     end
   end
 end
