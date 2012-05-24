@@ -5,8 +5,18 @@ class DsLisp
       if inside_code =~ /^\s*$/
         []
       else
-        # parse tokens
-        tokens = inside_code.split
+        # split tokens preserving parenthesis count
+        tokens = []
+        newtoken = ""
+        inside_code.split.each do |str|
+          newtoken << " "
+          newtoken << str
+          if newtoken.count("(") == newtoken.count(")")
+            tokens << newtoken
+            newtoken = ""          
+          end
+        end
+
         tokens.map(&method(:parse))
       end
     else
