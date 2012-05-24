@@ -14,6 +14,9 @@ class DsLisp
       def cons(element, list); [element]+list; end
       def append(list1,list2); list1+list2; end
       def list(*args); args; end
+
+      # recognizers
+      def null(element); (element == nil or element == []) || nil end
     end
   end
 
@@ -71,9 +74,7 @@ private
         CommonLispOperators.send(function_name, code)
       else      
         strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
-        rcode = "CommonLispFunctions.#{code.first}(#{strargs})"
-        p rcode
-        rcode      
+        "CommonLispFunctions.#{code.first}(#{strargs})"
       end    
     else
       code.inspect  
