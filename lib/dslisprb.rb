@@ -27,5 +27,9 @@ class DsLisp
       end
     end
   end
+
+  def evaluate(code)
+    code
+  end
 end
 
