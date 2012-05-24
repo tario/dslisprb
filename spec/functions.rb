@@ -107,6 +107,26 @@ describe DsLisp::CommonLispFunctions, "ds lisp functions"  do
       DsLisp.new.evaluate([:eq,pair.first,pair.last]).should be == resulteq
     end
   end
+
+  # boolean
+  [[true,true],[true,nil],[nil,true],[nil,nil]].each do |pair|
+    resultor = (pair.first or pair.last) || nil
+    resultand = (pair.first and pair.last) || nil
+    resultnot = (not pair.first) || nil
+
+    it "should call or with #{pair} and return #{resultor}" do
+      DsLisp.new.evaluate([:or,pair.first,pair.last]).should be == resultor
+    end
+
+    it "should call and with #{pair} and return #{resultand}" do
+      DsLisp.new.evaluate([:and,pair.first,pair.last]).should be == resultand
+    end
+
+    it "should call not" do
+      DsLisp.new.evaluate([:not,pair.first]).should be == resultnot
+    end
+  end
+
 end
 
 
