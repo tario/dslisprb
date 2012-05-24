@@ -45,8 +45,14 @@ private
   def to_ruby(code)
     if Array === code
       # lisp call
-      strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
-      "CommonLispFunctions.#{code.first}(#{strargs})"
+
+      function_name = code.first
+      if function_name == :quote
+        code[1].inspect
+      else      
+        strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
+        "CommonLispFunctions.#{code.first}(#{strargs})"
+      end    
     else
       code.inspect  
     end
