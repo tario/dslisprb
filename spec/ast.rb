@@ -27,5 +27,9 @@ describe DsLisp, "ds lisp"  do
   it "should parse list with atom inside" do
     DsLisp.new.parse('(1)').should be == [1]
   end 
+
+  it "should parse list with two atoms inside" do
+    DsLisp.new.parse('(1 2)').should be == [1, 2]
+  end 
 end
 
