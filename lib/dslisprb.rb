@@ -1,4 +1,11 @@
 class DsLisp
+
+  module CommonLispFunctions
+    class << self
+      def +(a,b); a+b; end
+    end
+  end
+
   def parse(str)
     if matchdata = /^\s*\((.*)\)\s*$/.match(str)
       inside_code = matchdata[1]
@@ -29,7 +36,20 @@ class DsLisp
   end
 
   def evaluate(code)
-    code
+    # generate ruby code for lisp ast
+    ruby_code = to_ruby(code)
+    eval(ruby_code)
+  end
+
+private
+  def to_ruby(code)
+    if Array === code
+      # lisp call
+      strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
+      "CommonLispFunctions.#{code.first}(#{strargs})"
+    else
+      code.inspect  
+    end
   end
 end
 
