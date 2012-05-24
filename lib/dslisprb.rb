@@ -33,6 +33,9 @@ class DsLisp
 
       # nil
       def nil; nil; end
+      def not(a); (not a) || nil; end
+      def and(a,b); (a and b) || nil; end
+      def or(a,b); (a or b) || nil; end
     end
   end
 
