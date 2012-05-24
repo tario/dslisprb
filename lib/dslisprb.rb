@@ -1,6 +1,6 @@
 class DsLisp
   def parse(str)
-    1
+    str.to_i
   end
 end
 
