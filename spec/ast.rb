@@ -20,6 +20,10 @@ describe DsLisp, "ds lisp"  do
     end 
   end
 
+  it "should parse empty list" do
+    DsLisp.new.parse('()').should be == []
+  end
+
   it "should parse list with atom inside" do
     DsLisp.new.parse('(1)').should be == [1]
   end 
