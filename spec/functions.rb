@@ -31,6 +31,15 @@ describe DsLisp::CommonLispFunctions, "ds lisp functions"  do
   it "should return (1 2 3) for (list 1 2 3)" do
     DsLisp.new.evaluate([:list, 1, 2, 3]).should be == [1,2,3]
   end
+
+  # type recognizers
+  [:a, 1, [1,2,3,4], [], nil].each do |obj|
+    result = (obj == nil or obj == []) ? true : nil
+    it "should return #{result} for (null #{obj})" do
+      DsLisp.new.evaluate([:null, [:quote, obj]]).should be == result
+    end
+  end
+
 end
 
 
