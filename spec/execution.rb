@@ -13,5 +13,10 @@ describe DsLisp, "ds lisp execution"  do
       DsLisp.new.evaluate(symbol).should be == symbol
     end 
   end
+
+  it "should evaluate call to arithmetic method +" do
+    DsLisp.new.evaluate([:+, 1, 2]).should be == 3
+  end 
+
 end
 
