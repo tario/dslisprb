@@ -6,6 +6,14 @@ class DsLisp
     end
   end
 
+  module CommonLispOperators
+    class << self
+      def quote(code)
+        code[1].inspect
+      end
+    end
+  end
+
   def parse(str)
     if matchdata = /^\s*\((.*)\)\s*$/.match(str)
       inside_code = matchdata[1]
@@ -47,8 +55,9 @@ private
       # lisp call
 
       function_name = code.first
-      if function_name == :quote
-        code[1].inspect
+
+      if (CommonLispOperators.methods - Class.methods).include?(function_name)
+        CommonLispOperators.send(function_name, code)
       else      
         strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
         "CommonLispFunctions.#{code.first}(#{strargs})"
