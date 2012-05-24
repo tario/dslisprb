@@ -18,5 +18,8 @@ describe DsLisp, "ds lisp execution"  do
     DsLisp.new.evaluate([:+, 1, 2]).should be == 3
   end 
 
+  it "should evaluate quote call to define literals" do
+    DsLisp.new.evaluate([:quote, [1, 2, 3]]).should be == [1, 2, 3]
+  end 
 end
 
