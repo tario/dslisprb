@@ -61,6 +61,13 @@ describe DsLisp::CommonLispFunctions, "ds lisp functions"  do
       DsLisp.new.evaluate([:listp, [:quote, obj]]).should be == listp_result
     end
   end
+
+  [[1], [1,2], [1,2,3], [1,2,3,4]].each do |obj|
+    result = obj.size
+    it "should return #{result} for (length #{obj})" do
+      DsLisp.new.evaluate([:length, [:quote, obj]]).should be == result
+    end
+  end
 end
 
 
