@@ -5,7 +5,9 @@ class DsLisp
       if inside_code =~ /^\s*$/
         []
       else
-        [ parse(matchdata[1]) ]
+        # parse tokens
+        tokens = inside_code.split
+        tokens.map(&method(:parse))
       end
     else
       if str =~ /^\s*\d+\s*$/
