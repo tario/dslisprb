@@ -45,6 +45,21 @@ describe DsLisp::CommonLispFunctions, "ds lisp functions"  do
     it "should return #{result} for (atom #{obj})" do
       DsLisp.new.evaluate([:atom, [:quote, obj]]).should be == result
     end
+
+    numberp_result = (Numeric === obj) ? true : nil
+    it "should return #{result} for (numberp #{obj})" do
+      DsLisp.new.evaluate([:numberp, [:quote, obj]]).should be == numberp_result
+    end
+
+    symbolp_result = (Symbol === obj) ? true : nil
+    it "should return #{result} for (symbolp #{obj})" do
+      DsLisp.new.evaluate([:symbolp, [:quote, obj]]).should be == symbolp_result
+    end
+
+    listp_result = (Array === obj) ? true : nil
+    it "should return #{result} for (listp #{obj})" do
+      DsLisp.new.evaluate([:listp, [:quote, obj]]).should be == listp_result
+    end
   end
 end
 
