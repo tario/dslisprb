@@ -1,46 +1,4 @@
 class DsLisp
-
-  module CommonLispFunctions
-    class << self
-      # arithmetic
-      def +(a,b); a+b; end
-      def *(a,b); a*b; end
-      def /(a,b); a/b; end
-      def -(a,b); a-b; end
-
-      # relational
-      def <(a,b); a<b || nil; end
-      def >(a,b); a>b || nil; end
-      def eq(a,b); a==b || nil; end
-      
-      # list selectors
-      def car(a); a.first; end
-      def cdr(a); a[1..-1]; end
-      def nth(index, list); list[index-1]; end
-      
-      # list constructors
-      def cons(element, list); [element]+list; end
-      def append(list1,list2); list1+list2; end
-      def list(*args); args; end
-
-      # recognizers
-      def null(element); (element == nil or element == []) || nil end
-      def atom(element); (not Array === element) || nil; end
-      def numberp(element); Numeric === element || nil; end
-      def symbolp(element); Symbol === element || nil; end
-      def listp(element); Array === element || nil; end
-      def length(list); list.size; end
-
-      # nil
-      def nil; nil; end
-
-      # boolean
-      def not(a); (not a) || nil; end
-      def and(a,b); (a and b) || nil; end
-      def or(a,b); (a or b) || nil; end
-    end
-  end
-
   module CommonLispOperators
     class << self
       def quote(code)
@@ -79,12 +37,54 @@ class DsLisp
   end
 
   def evaluate(code)
+    # arithmethic
+    plus = lambda{|x,y| x+y}
+    mult = lambda{|x,y| x*y}
+    divide = lambda{|x,y| x/y}
+    minus = lambda{|x,y| x-y}
+
+    lt = lambda{|x,y| x<y || nil}
+    ht = lambda{|x,y| x>y || nil}
+    _eq = lambda{|x,y| x==y || nil}
+
+      
+    # list selectors
+    _car = lambda{|x| x.first}
+    _cdr = lambda{|x| x[1..-1]}
+    _nth = lambda{|index,list| list[index-1]}
+
+    # list constructors
+    _cons = lambda{|element, list| [element]+list}
+    _append = plus
+    _list = lambda{|*args| args}
+
+    # recognizers
+    _null = lambda{|element| (element == nil or element == []) || nil}
+    _atom = lambda{|element| (not Array === element) || nil}
+    _numberp = lambda{|element| Numeric === element || nil}
+    _symbolp = lambda{|element| Symbol === element || nil}
+    _listp = lambda{|element| Array === element || nil}
+    _length = lambda{|list| list.size}
+
+    # nil
+    _nil = lambda{nil}
+
+    # boolean
+    _not = lambda{|a| (not a) || nil}
+    _and = lambda{|a,b| (a and b) || nil}
+    _or = lambda{|a,b| (a or b) || nil}
+
     # generate ruby code for lisp ast
     ruby_code = to_ruby(code)
     eval(ruby_code)
   end
 
 private
+
+  def name_convert(name)
+    {:< => "lt", :> => "ht", :+ => "plus", :* => "mult" , :/ => "divide", :- => "minus" }[name] || "_" + name.to_s
+  end
+
   def to_ruby(code)
     if Array === code
       # lisp call
@@ -95,7 +95,12 @@ private
         CommonLispOperators.send(function_name, code)
       else      
         strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
-        "CommonLispFunctions.#{code.first}(#{strargs})"
+
+        if Symbol === function_name
+          "#{name_convert(function_name)}.call(#{strargs})"
+        else
+          "#{to_ruby(code.first)}.call(#{strargs})"
+        end
       end    
     else
       code.inspect  

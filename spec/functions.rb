@@ -1,6 +1,6 @@
 require "dslisprb"
 
-describe DsLisp::CommonLispFunctions, "ds lisp functions"  do
+describe DsLisp, "ds lisp functions"  do
 
   # selectors
   it "should return 1 for (car (quote (1 2)))" do
