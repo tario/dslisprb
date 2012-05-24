@@ -23,7 +23,7 @@ class DsLisp
       if str =~ /^\s*\d+\s*$/
         str.to_i
       else
-        str.to_sym
+        str.strip.to_sym
       end
     end
   end
