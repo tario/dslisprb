@@ -17,6 +17,7 @@ class DsLisp
 
       # recognizers
       def null(element); (element == nil or element == []) || nil end
+      def atom(element); (not Array === element) || nil; end
     end
   end
 
