@@ -72,6 +72,41 @@ describe DsLisp::CommonLispFunctions, "ds lisp functions"  do
   it "should return nil on nil function" do
     DsLisp.new.evaluate([:nil]).should be == nil
   end
+
+  # arithmetic
+  it "should call +" do
+    DsLisp.new.evaluate([:+,1,2]).should be == 3
+  end
+
+  it "should call -" do
+    DsLisp.new.evaluate([:-,7,4]).should be == 3
+  end
+
+  it "should call *" do
+    DsLisp.new.evaluate([:*,5,6]).should be == 30
+  end
+
+  it "should call /" do
+    DsLisp.new.evaluate([:/,10,2]).should be == 5
+  end
+
+  # relational
+  [[3,2],[3,3],[3,4]].each do |pair|
+    result = pair.first < pair.last || nil
+    it "should call <" do
+      DsLisp.new.evaluate([:<,pair.first,pair.last]).should be == result
+    end
+
+    resultht = pair.first > pair.last || nil
+    it "should call >" do
+      DsLisp.new.evaluate([:>,pair.first,pair.last]).should be == resultht
+    end
+
+    resulteq = pair.first == pair.last || nil
+    it "should call eq" do
+      DsLisp.new.evaluate([:eq,pair.first,pair.last]).should be == resulteq
+    end
+  end
 end
 
 
