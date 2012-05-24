@@ -3,6 +3,7 @@ class DsLisp
   module CommonLispFunctions
     class << self
       def +(a,b); a+b; end
+      def car(a); a.first; end
     end
   end
 
