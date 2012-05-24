@@ -68,6 +68,10 @@ describe DsLisp::CommonLispFunctions, "ds lisp functions"  do
       DsLisp.new.evaluate([:length, [:quote, obj]]).should be == result
     end
   end
+
+  it "should return nil on nil function" do
+    DsLisp.new.evaluate([:nil]).should be == nil
+  end
 end
 
 
