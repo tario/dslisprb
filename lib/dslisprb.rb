@@ -21,6 +21,7 @@ class DsLisp
       def numberp(element); Numeric === element || nil; end
       def symbolp(element); Symbol === element || nil; end
       def listp(element); Array === element || nil; end
+      def length(list); list.size; end
     end
   end
 
