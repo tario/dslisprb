@@ -1,8 +1,11 @@
 require "dslisprb"
 
 describe DsLisp, "ds lisp"  do
-  it "should parse simple atom" do
-    DsLisp.new.parse("1").should be == 1
-  end 
+
+  (1..10).each do |i|
+    it "should parse simple atom" do
+      DsLisp.new.parse(i.to_s).should be == i
+    end 
+  end
 end
 
