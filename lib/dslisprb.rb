@@ -2,8 +2,18 @@ class DsLisp
 
   module CommonLispFunctions
     class << self
+      # arithmetic
       def +(a,b); a+b; end
+      
+      # list selectors
       def car(a); a.first; end
+      def cdr(a); a[1..-1]; end
+      def nth(index, list); list[index-1]; end
+      
+      # list constructors
+      def cons(element, list); [element]+list; end
+      def append(list1,list2); list1+list2; end
+      def list(*args); args; end
     end
   end
 
@@ -61,7 +71,9 @@ private
         CommonLispOperators.send(function_name, code)
       else      
         strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
-        "CommonLispFunctions.#{code.first}(#{strargs})"
+        rcode = "CommonLispFunctions.#{code.first}(#{strargs})"
+        p rcode
+        rcode      
       end    
     else
       code.inspect  
