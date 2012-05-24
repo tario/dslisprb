@@ -40,6 +40,12 @@ describe DsLisp::CommonLispFunctions, "ds lisp functions"  do
     end
   end
 
+  [:a, 1, [1,2,3,4]].each do |obj|
+    result = (not Array === obj) ? true : nil
+    it "should return #{result} for (atom #{obj})" do
+      DsLisp.new.evaluate([:atom, [:quote, obj]]).should be == result
+    end
+  end
 end
 
 
