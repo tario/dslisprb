@@ -89,7 +89,9 @@ class DsLisp
   end
 
   def parse(str)
-    if matchdata = /^\s*\((.*)\)\s*$/.match(str)
+    if matchdata = /^\s*\'(.*)\s*$/.match(str)
+      [:quote, parse(matchdata[1].sub("'",""))]
+    elsif matchdata = /^\s*\((.*)\)\s*$/.match(str)
       inside_code = matchdata[1]
       if inside_code =~ /^\s*$/
         []
