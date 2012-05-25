@@ -7,18 +7,19 @@ if ARGV[1]
   p dslisp.evaluate(ARGV[1])
 else
   # repl
+  require 'readline'
   print "enter lisp commands or quit to exit\n"
 
-  while (1)
-    print "> "
-    cmd = readline
+  stty_save = `stty -g`.chomp
+  trap('INT') { system('stty', stty_save); exit }
 
-    if cmd.chop == "quit"
+  while cmd = Readline.readline('> ', true)
+    if cmd == "quit"
       exit
     end
 
     begin
-      print dslisp.evaluate(cmd.chop).lisp_inspect,"\n"
+      print dslisp.evaluate(cmd).lisp_inspect,"\n"
     rescue Exception => e
       p e
       print e.backtrace.join("\n"),"\n"
