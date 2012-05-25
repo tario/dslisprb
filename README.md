@@ -22,6 +22,7 @@ allowing reuse of the ruby stack instead of reimplement it
 
 * MAPCAR
 * Defined functions and variable persistent between multiple evaluate calls
+* caaaar, cdadar, cddra, etc...
 
 == SYNOPSIS:
 
