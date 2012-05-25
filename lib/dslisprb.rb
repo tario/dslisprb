@@ -53,6 +53,11 @@ class DsLisp
       def set(code)
         "#{ToRuby.name_convert(code[1])} = #{ToRuby.to_ruby(code[2])}"
       end
+
+      def defun(code)
+        newcode = [:set, code[1], [:lambda, code[2], code[3]]] 
+        ToRuby.to_ruby(newcode)
+      end
     end
   end
 
