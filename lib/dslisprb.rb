@@ -14,7 +14,13 @@ class DsLisp
           if (CommonLispOperators.methods - Class.methods).include?(function_name)
             CommonLispOperators.send(function_name, code)
           else      
-            strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
+            strargs = code[1..-1].map{|x| 
+              if Symbol === x
+                "(local_variables.include?(:#{x}) ? #{x} : (#{to_ruby(x)}))"
+              else
+                "(#{to_ruby(x)})"
+              end
+            }.join(",")
 
             if Symbol === function_name
               "#{name_convert(function_name)}.call(#{strargs})"
@@ -37,7 +43,7 @@ class DsLisp
 
       def lambda(code)
         arguments = code[1].map(&:to_s).join(",")
-        "lambda{|#{arguments}| 2}"
+        "lambda{|#{arguments}| #{ToRuby.to_ruby(code[2])}}"
       end
 
       def block(code)
