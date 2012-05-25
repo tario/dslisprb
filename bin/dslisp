@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+require "dslisprb"
+
+dslisp = DsLisp.new
+if ARGV[1]
+ # execute and exit
+  p dslisp.evaluate(ARGV[1])
+else
+  # repl
+  print "enter lisp commands or quit to exit\n"
+
+  while (1)
+    print "> "
+    cmd = readline
+
+    if cmd.chop == "quit"
+      exit
+    end
+
+    begin
+      p dslisp.evaluate(cmd.chop)
+    rescue Exception => e
+      p e
+      print e.backtrace.join("\n"),"\n"
+    end
+  end
+end

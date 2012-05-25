@@ -118,6 +118,9 @@ class DsLisp
   end
 
   def evaluate(code)
+    if String === code
+      return evaluate(parse code)
+    end
     # arithmethic
     plus = lambda{|x,y| x+y}
     mult = lambda{|x,y| x*y}
