@@ -1,8 +1,43 @@
 class DsLisp
+  class ToRuby
+    class << self
+      def name_convert(name)
+        {:< => "lt", :> => "ht", :+ => "plus", :* => "mult" , :/ => "divide", :- => "minus" }[name] || "_" + name.to_s
+      end
+
+      def to_ruby(code)
+        if Array === code
+          # lisp call
+
+          function_name = code.first
+
+          if (CommonLispOperators.methods - Class.methods).include?(function_name)
+            CommonLispOperators.send(function_name, code)
+          else      
+            strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
+
+            if Symbol === function_name
+              "#{name_convert(function_name)}.call(#{strargs})"
+            else
+              "#{to_ruby(code.first)}.call(#{strargs})"
+            end
+          end    
+        else
+          code.inspect  
+        end
+      end    
+    end
+  end
+
   module CommonLispOperators
     class << self
       def quote(code)
         code[1].inspect
+      end
+
+      def lambda(code)
+        arguments = code[1].map(&:to_s).join(",")
+        "lambda{|#{arguments}| 2}"
       end
     end
   end
@@ -75,36 +110,8 @@ class DsLisp
     _or = lambda{|a,b| (a or b) || nil}
 
     # generate ruby code for lisp ast
-    ruby_code = to_ruby(code)
+    ruby_code = ToRuby.to_ruby(code)
     eval(ruby_code)
-  end
-
-private
-
-  def name_convert(name)
-    {:< => "lt", :> => "ht", :+ => "plus", :* => "mult" , :/ => "divide", :- => "minus" }[name] || "_" + name.to_s
-  end
-
-  def to_ruby(code)
-    if Array === code
-      # lisp call
-
-      function_name = code.first
-
-      if (CommonLispOperators.methods - Class.methods).include?(function_name)
-        CommonLispOperators.send(function_name, code)
-      else      
-        strargs = code[1..-1].map{|x| "("+to_ruby(x)+")"}.join(",")
-
-        if Symbol === function_name
-          "#{name_convert(function_name)}.call(#{strargs})"
-        else
-          "#{to_ruby(code.first)}.call(#{strargs})"
-        end
-      end    
-    else
-      code.inspect  
-    end
   end
 end
 
