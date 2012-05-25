@@ -58,6 +58,33 @@ class DsLisp
         newcode = [:set, code[1], [:lambda, code[2], code[3]]] 
         ToRuby.to_ruby(newcode)
       end
+
+      def defmacro(code)
+        name = code[1]
+        arguments = code[2]
+        impl = code[3][1]
+
+        subsl = Kernel.lambda{|_code, rplmap|
+          _code.map{|subcode|
+            if Array === subcode
+              subsl.call(subcode, rplmap)
+            else
+              rplmap[subcode] || subcode
+            end
+          }
+        }
+
+        CommonLispOperators.define_singleton_method(name) do |_code|
+          rplmap = {}          
+          (0..arguments.size-1).each do |i|
+            rplmap[arguments[i]] = _code[i+1]
+          end
+
+          ToRuby.to_ruby subsl.call(impl, rplmap)
+        end
+
+        ""
+      end
     end
   end
 
