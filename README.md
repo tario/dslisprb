@@ -2,7 +2,7 @@ dslisprb (dseminara 'lisp)
 http://github.com/tario/dslisprb
 Dario Seminara (http://tario-project.blogspot.com.ar/)
 
-== DESCRIPTION ==
+== DESCRIPTION:
 
 dseminara 'lisp is my own implementation of lisp on ruby, created as an excercise in preparation for finals
 
@@ -13,30 +13,30 @@ For example, lisp lambdas are represented as ruby lambdas defined with the code 
 and lisp variables (including those where default functions/lambda are stored) are translated as ruby variables
 allowing reuse of the ruby stack instead of reimplement it 
 
-== FEATURES ==
+== FEATURES:
   
 * dslisprb executable with readline
 * Basic common lisp functions
 
-== TODO ==
+== TODO:
 
 * MAPCAR
 * Defined functions and variable persistent between multiple evaluate calls
 * caaaar, cdadar, cddra, etc...
 
-== SYNOPSIS ==
+== SYNOPSIS:
 
 See 'dslisprb --help' for usage information.
 
-== REQUIREMENTS ==
+== REQUIREMENTS:
 
 * Ruby
 
-== INSTALL ==
+== INSTALL:
 
 * gem install dslisprb
 
-== LICENSE ==
+== LICENSE:
 
 (The MIT License)
 
