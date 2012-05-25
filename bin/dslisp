@@ -18,7 +18,7 @@ else
     end
 
     begin
-      p dslisp.evaluate(cmd.chop)
+      print dslisp.evaluate(cmd.chop).lisp_inspect,"\n"
     rescue Exception => e
       p e
       print e.backtrace.join("\n"),"\n"

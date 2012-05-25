@@ -43,7 +43,7 @@ class DsLisp
 
       def lambda(code)
         arguments = code[1].map(&:to_s).join(",")
-        "lambda{|#{arguments}| #{ToRuby.to_ruby(code[2])}}"
+        "lambda{|#{arguments}| #{ToRuby.to_ruby(code[2])}}.lisp_inner_code(#{code.lisp_inspect.inspect})"
       end
 
       def block(code)
@@ -163,6 +163,35 @@ class DsLisp
     # generate ruby code for lisp ast
     ruby_code = ToRuby.to_ruby(code)
     eval(ruby_code)
+  end
+end
+
+class Object
+  def lisp_inspect
+    inspect
+  end
+end
+
+class Symbol
+  def lisp_inspect
+    to_s
+  end
+end
+
+class Array
+  def lisp_inspect
+    "(" + map(&:lisp_inspect).join(" ") + ")"  
+  end
+end
+
+class Proc
+  def lisp_inspect
+    @inner_code
+  end
+
+  def lisp_inner_code(code)
+    @inner_code = code
+    self
   end
 end
 
