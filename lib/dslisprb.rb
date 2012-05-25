@@ -39,6 +39,14 @@ class DsLisp
         arguments = code[1].map(&:to_s).join(",")
         "lambda{|#{arguments}| 2}"
       end
+
+      def block(code)
+        code[1..-1].map(&ToRuby.method(:to_ruby)).join(";")
+      end
+
+      def set(code)
+        "#{ToRuby.name_convert(code[1])} = #{ToRuby.to_ruby(code[2])}"
+      end
     end
   end
 
