@@ -2,9 +2,25 @@
 require "dslisprb"
 
 dslisp = DsLisp.new
-if ARGV[1]
- # execute and exit
-  p dslisp.evaluate(ARGV[1])
+if ARGV[0]
+  if ARGV[0] == '--help'
+    print "
+  dslisprb --help
+    show this message
+  dslisprb <lisp expression>
+    evaluate lisp expression, shows the result on standard output and exit
+
+    Example:
+      dslisprb \"(car '(1 2 3))\"
+      (2 3)
+
+  dslisprb without arguments starts the repl
+"
+
+  else
+    # execute and exit
+    print dslisp.evaluate(ARGV[0]).lisp_inspect,"\n"
+  end
 else
   # repl
   require 'readline'
