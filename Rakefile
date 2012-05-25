@@ -15,7 +15,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = "http://github.com/tario/dslisprb"
   s.has_rdoc = true
   s.executables = ["dslisprb"]
-  s.files = Dir.glob("{lib,spec}/**/*") + [ 'README.md', 'Rakefile', 'TODO', 'CHANGELOG' ]
+  s.files = Dir.glob("{lib,spec}/**/*") + [ 'README.rdoc', 'Rakefile', 'TODO', 'CHANGELOG' ]
 end
 
 desc 'Run tests'
