@@ -12,6 +12,9 @@ describe DsLisp, "ds lisp defun"  do
             ]).should be == 2
   end
 
+  it "should allow lambda returning 3" do
+    DsLisp.new.evaluate([:lambda, [:x], [:+, :x, 2]]).call(1).should be == 3
+  end
 end
 
 
