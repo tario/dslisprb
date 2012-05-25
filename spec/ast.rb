@@ -42,6 +42,14 @@ describe DsLisp, "ds lisp"  do
 
   it "should parse list with two list with two symbolic atoms inside" do
     DsLisp.new.parse('((a b) (c d))').should be == [[:a, :b],[:c, :d]]
+  end
+
+  it "should parse quote with atoms" do
+    DsLisp.new.parse("'car").should be == [:quote, :car]
+  end 
+
+  it "should parse quote with lists" do
+    DsLisp.new.parse("'(1 2 3)").should be == [:quote, [1,2,3]]
   end 
 end
 
