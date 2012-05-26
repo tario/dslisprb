@@ -164,6 +164,13 @@ class DsLisp
     _and = lambda{|a,b| (a and b) || nil}
     _or = lambda{|a,b| (a or b) || nil}
 
+
+    _mapcan = lambda{|function, list|
+      list.map(&function).map{|x|
+        x || [] 
+      }.inject(&:+)
+    }
+
     # generate ruby code for lisp ast
     ruby_code = ToRuby.to_ruby(code)
     eval(ruby_code)
