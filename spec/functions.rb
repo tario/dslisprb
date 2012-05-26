@@ -127,6 +127,9 @@ describe DsLisp, "ds lisp functions"  do
     end
   end
 
+  it "should execute mapcan" do
+    DsLisp.new.evaluate("(mapcan (lambda (x) (and (numberp x) (list x))) '(a 1 b c 3 4 d 5))").should be == [1, 3, 4, 5]
+  end
 end
 
 
