@@ -171,6 +171,8 @@ class DsLisp
       }.inject(&:+)
     }
 
+    _mapcar = lambda{|function, list| list.map(&function)}
+
     # generate ruby code for lisp ast
     ruby_code = ToRuby.to_ruby(code)
     eval(ruby_code)
