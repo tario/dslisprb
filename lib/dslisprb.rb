@@ -29,7 +29,13 @@ class DsLisp
             end
           end    
         else
-          code.inspect  
+          if code == :nil
+            nil
+          elsif code == :T
+            true
+          else
+            code.inspect
+          end  
         end
       end    
     end
@@ -42,7 +48,13 @@ class DsLisp
       end
 
       def if(code)
-        ToRuby.to_ruby [:+, 110, 1]
+        "(if (#{ToRuby.to_ruby code[1]})
+            #{ToRuby.to_ruby code[2]}
+          else
+            #{ToRuby.to_ruby code[3]}
+          end
+         )
+         "
       end
 
       def lambda(code)
