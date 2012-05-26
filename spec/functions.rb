@@ -134,6 +134,12 @@ describe DsLisp, "ds lisp functions"  do
   it "should execute mapcar" do
     DsLisp.new.evaluate("(mapcar (lambda (x) (+ x 1)) '(1 2 3 4))").should be == [2, 3, 4, 5]
   end
+
+  it "should execute mapcar with defined function" do
+    dslisp = DsLisp.new
+    dslisp.evaluate("(defun foo (x) (+ x 1))")
+    dslisp.evaluate("(mapcar foo '(1 2 3 4))").should be == [2, 3, 4, 5]
+  end
 end
 
 
