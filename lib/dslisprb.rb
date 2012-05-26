@@ -47,6 +47,13 @@ class DsLisp
         code[1].inspect
       end
 
+      def cond(code)
+        "(nil.tap { 
+        " + code[1..-1].map{ |condition_code|
+          "(break (#{ToRuby.to_ruby condition_code[1]}) if (#{ToRuby.to_ruby condition_code[0]}))"
+        }.join(";") + "})"
+      end
+
       def if(code)
         "(if (#{ToRuby.to_ruby code[1]})
             #{ToRuby.to_ruby code[2]}
