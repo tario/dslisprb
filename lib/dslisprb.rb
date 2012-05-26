@@ -127,55 +127,65 @@ class DsLisp
     if String === code
       return evaluate(parse code)
     end
-    # arithmethic
-    plus = lambda{|x,y| x+y}
-    mult = lambda{|x,y| x*y}
-    divide = lambda{|x,y| x/y}
-    minus = lambda{|x,y| x-y}
-
-    lt = lambda{|x,y| x<y || nil}
-    ht = lambda{|x,y| x>y || nil}
-    _eq = lambda{|x,y| x==y || nil}
-
-      
-    # list selectors
-    _car = lambda{|x| x.first}
-    _cdr = lambda{|x| x[1..-1]}
-    _nth = lambda{|index,list| list[index-1]}
-
-    # list constructors
-    _cons = lambda{|element, list| [element]+list}
-    _append = plus
-    _list = lambda{|*args| args}
-
-    # recognizers
-    _null = lambda{|element| (element == nil or element == []) || nil}
-    _atom = lambda{|element| (not Array === element) || nil}
-    _numberp = lambda{|element| Numeric === element || nil}
-    _symbolp = lambda{|element| Symbol === element || nil}
-    _listp = lambda{|element| Array === element || nil}
-    _length = lambda{|list| list.size}
-
-    # nil
-    _nil = lambda{nil}
-
-    # boolean
-    _not = lambda{|a| (not a) || nil}
-    _and = lambda{|a,b| (a and b) || nil}
-    _or = lambda{|a,b| (a or b) || nil}
-
-
-    _mapcan = lambda{|function, list|
-      list.map(&function).map{|x|
-        x || [] 
-      }.inject(&:+)
-    }
-
-    _mapcar = lambda{|function, list| list.map(&function)}
 
     # generate ruby code for lisp ast
     ruby_code = ToRuby.to_ruby(code)
-    eval(ruby_code)
+    eval(ruby_code, main_binding)
+  end
+
+private
+  
+  def main_binding
+    unless @binding
+      @binding = binding
+
+      # arithmethic
+      plus = lambda{|x,y| x+y}
+      mult = lambda{|x,y| x*y}
+      divide = lambda{|x,y| x/y}
+      minus = lambda{|x,y| x-y}
+
+      lt = lambda{|x,y| x<y || nil}
+      ht = lambda{|x,y| x>y || nil}
+      _eq = lambda{|x,y| x==y || nil}
+
+        
+      # list selectors
+      _car = lambda{|x| x.first}
+      _cdr = lambda{|x| x[1..-1]}
+      _nth = lambda{|index,list| list[index-1]}
+
+      # list constructors
+      _cons = lambda{|element, list| [element]+list}
+      _append = plus
+      _list = lambda{|*args| args}
+
+      # recognizers
+      _null = lambda{|element| (element == nil or element == []) || nil}
+      _atom = lambda{|element| (not Array === element) || nil}
+      _numberp = lambda{|element| Numeric === element || nil}
+      _symbolp = lambda{|element| Symbol === element || nil}
+      _listp = lambda{|element| Array === element || nil}
+      _length = lambda{|list| list.size}
+
+      # nil
+      _nil = lambda{nil}
+
+      # boolean
+      _not = lambda{|a| (not a) || nil}
+      _and = lambda{|a,b| (a and b) || nil}
+      _or = lambda{|a,b| (a or b) || nil}
+
+
+      _mapcan = lambda{|function, list|
+        list.map(&function).map{|x|
+          x || [] 
+        }.inject(&:+)
+      }
+
+      _mapcar = lambda{|function, list| list.map(&function)}
+    end
+    @binding
   end
 end
 
