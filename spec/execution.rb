@@ -20,6 +20,12 @@ describe DsLisp, "ds lisp execution"  do
 
   it "should evaluate quote call to define literals" do
     DsLisp.new.evaluate([:quote, [1, 2, 3]]).should be == [1, 2, 3]
+  end
+
+  it "should preserve variables through multiple function calls" do
+    dslisp = DsLisp.new
+    dslisp.evaluate("(defun foo (x) (+ x 1))")
+    dslisp.evaluate("(foo 3)").should be == 4
   end 
 end
 
