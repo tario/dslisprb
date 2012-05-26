@@ -177,13 +177,23 @@ private
       _or = lambda{|a,b| (a or b) || nil}
 
 
+      as_function = lambda{|object|
+        if Symbol === object
+          eval(ToRuby.name_convert(object),@binding)
+        elsif not object.respond_to?(:call)
+          lambda{|*x| object}
+        else
+          object
+        end
+      }
+
       _mapcan = lambda{|function, list|
-        list.map(&function).map{|x|
+        list.map(&as_function.call(function)).map{|x|
           x || [] 
         }.inject(&:+)
       }
 
-      _mapcar = lambda{|function, list| list.map(&function)}
+      _mapcar = lambda{|function, list| list.map(&as_function.call(function))}
     end
     @binding
   end
