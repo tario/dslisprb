@@ -41,6 +41,10 @@ class DsLisp
         code[1].inspect
       end
 
+      def if(code)
+        ToRuby.to_ruby [:+, 110, 1]
+      end
+
       def lambda(code)
         arguments = code[1].map(&:to_s).join(",")
         "lambda{|#{arguments}| #{ToRuby.to_ruby(code[2])}}.lisp_inner_code(#{code.lisp_inspect.inspect})"
