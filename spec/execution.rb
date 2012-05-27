@@ -31,5 +31,13 @@ describe DsLisp, "ds lisp execution"  do
   it "should return false for empty list" do
     DsLisp.new.evaluate("(and '() 2)").should be == nil
   end 
+
+  it "should evaluate empty list as false on if" do
+    DsLisp.new.evaluate("(if '() (+ 1 1) (+ 2 2))").should be == 4
+  end
+
+  it "should evaluate empty list as false on cond" do
+    DsLisp.new.evaluate("(cond ('() (+ 2 3)) ((> 2 1) (+ 1 2)))").should be == 3
+  end
 end
 
