@@ -50,7 +50,7 @@ class DsLisp
       def cond(code)
         "(nil.tap { 
         " + code[1..-1].map{ |condition_code|
-          "(break (#{ToRuby.to_ruby condition_code[1]}) if (#{ToRuby.to_ruby condition_code[0]}))"
+          "(break (#{ToRuby.to_ruby condition_code[1]}) if (aux = (#{ToRuby.to_ruby condition_code[0]}); aux != [] and aux != nil) )"
         }.join(";") + "})"
       end
 
