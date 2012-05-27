@@ -11,7 +11,7 @@ if ARGV[0]
     evaluate lisp expression, shows the result on standard output and exit
 
     Example:
-      dslisprb \"(car '(1 2 3))\"
+      dslisprb \"(cdr '(1 2 3))\"
       (2 3)
 
   dslisprb without arguments starts the repl
