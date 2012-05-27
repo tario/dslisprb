@@ -55,7 +55,7 @@ class DsLisp
       end
 
       def if(code)
-        "(if (#{ToRuby.to_ruby code[1]})
+        "(if (aux = (#{ToRuby.to_ruby code[1]}); aux != [] and aux != nil)
             #{ToRuby.to_ruby code[2]}
           else
             #{ToRuby.to_ruby code[3]}
