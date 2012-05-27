@@ -157,7 +157,14 @@ class DsLisp
   end
 
 private
-  
+  def null(element)
+    element == nil or element == []
+  end
+
+  def not_null(element)
+    element != nil and element != []
+  end
+
   def main_binding
     unless @binding
       @binding = binding
@@ -184,7 +191,7 @@ private
       _list = lambda{|*args| args}
 
       # recognizers
-      _null = lambda{|element| (element == nil or element == []) || nil}
+      _null = lambda{|element| null(element) ? true : nil}
       _atom = lambda{|element| (not Array === element) || nil}
       _numberp = lambda{|element| Numeric === element || nil}
       _symbolp = lambda{|element| Symbol === element || nil}
@@ -195,9 +202,15 @@ private
       _nil = lambda{nil}
 
       # boolean
-      _not = lambda{|a| (not a) || nil}
-      _and = lambda{|a,b| (a and b) || nil}
-      _or = lambda{|a,b| (a or b) || nil}
+      _not = lambda{|a| null(a) ? true : nil}
+      _and = lambda{|a,b| (not_null(a) and not_null(b)) ? b : nil}
+      _or = lambda{|a,b| 
+          if not_null(a)
+            a
+          else
+            b
+          end 
+      }
 
 
       as_function = lambda{|object|
