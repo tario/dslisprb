@@ -26,6 +26,10 @@ describe DsLisp, "ds lisp execution"  do
     dslisp = DsLisp.new
     dslisp.evaluate("(defun foo (x) (+ x 1))")
     dslisp.evaluate("(foo 3)").should be == 4
+  end
+
+  it "should return false for empty list" do
+    DsLisp.new.evaluate("(and '() 2)").should be == nil
   end 
 end
 
