@@ -136,6 +136,10 @@ describe DsLisp, "ds lisp functions"  do
     dslisp.evaluate("(defun foo (x) (+ x 1))")
     dslisp.evaluate("(mapcar foo '(1 2 3 4))").should be == [2, 3, 4, 5]
   end
+
+  it "should interpret nil symbol as nil" do
+    DsLisp.new.evaluate(:nil).should be == nil
+  end
 end
 
 

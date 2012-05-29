@@ -50,6 +50,14 @@ describe DsLisp, "ds lisp"  do
 
   it "should parse quote with lists" do
     DsLisp.new.parse("'(1 2 3)").should be == [:quote, [1,2,3]]
-  end 
+  end
+
+  it "should parse nil" do
+    DsLisp.new.parse("nil").should be == :nil
+  end
+
+  it "should parse quoted empty list" do
+    DsLisp.new.parse("'[]").should be == [:quote, []]
+  end
 end
 
