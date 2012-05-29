@@ -29,6 +29,11 @@ else
   stty_save = `stty -g`.chomp
   trap('INT') { system('stty', stty_save); exit }
 
+  Readline.completion_append_character = " "
+  Readline.completion_proc = proc do |s|
+    dslisp.variables.grep( /^#{Regexp.escape(s)}/ )
+  end
+
   while cmd = Readline.readline('> ', true)
     if cmd == "quit"
       exit

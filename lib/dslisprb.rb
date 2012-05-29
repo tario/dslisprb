@@ -1,6 +1,11 @@
 class DsLisp
   class ToRuby
     class << self
+
+      def convert_name(name)
+        {:lt => "<", :ht => :>, :plus => :+, :mult => "*", :divide => "/", :minus => "-" }[name] || name[1..-1]
+      end
+
       def name_convert(name)
         {:< => "lt", :> => "ht", :+ => "plus", :* => "mult" , :/ => "divide", :- => "minus" }[name] || "_" + name.to_s
       end
@@ -158,6 +163,10 @@ class DsLisp
     # generate ruby code for lisp ast
     ruby_code = ToRuby.to_ruby(code)
     eval(ruby_code, main_binding)
+  end
+
+  def variables
+    eval("local_variables", main_binding).map(&ToRuby.method(:convert_name))
   end
 
 private
