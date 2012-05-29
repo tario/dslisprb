@@ -8,9 +8,9 @@ describe DsLisp, "ds lisp execution"  do
     end 
   end
 
-  [:x,:y,:z].each do |symbol|
+  [:x,:y,:z].map{|x| [:quote,x]}.each do |symbol|
     it "should parse simple symbolic atom #{symbol}" do
-      DsLisp.new.evaluate(symbol).should be == symbol
+      DsLisp.new.evaluate(symbol).should be == symbol.last
     end 
   end
 

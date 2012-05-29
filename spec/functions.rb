@@ -69,10 +69,6 @@ describe DsLisp, "ds lisp functions"  do
     end
   end
 
-  it "should return nil on nil function" do
-    DsLisp.new.evaluate([:nil]).should be == nil
-  end
-
   # arithmetic
   it "should call +" do
     DsLisp.new.evaluate([:+,1,2]).should be == 3
