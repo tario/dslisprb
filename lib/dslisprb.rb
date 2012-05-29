@@ -62,7 +62,7 @@ class DsLisp
       def lambda(code)
         arguments = code[1].map(&ToRuby.method(:name_convert)).map(&:to_s)
         "(#{arguments.join(",")} = #{code[1].map{"nil"}.join(",")} ;lambda{|*x|
-            oldargs = [ #{arguments} ] # save current bindings
+            oldargs = [ #{arguments.join(",")} ] # save current bindings
             #{(0..arguments.size-1).map{|i| "#{arguments[i]} = x[#{i}]" }.join(";")} 
             begin
               aux = #{ToRuby.to_ruby(code[2])}
