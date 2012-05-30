@@ -27,7 +27,7 @@ class DsLisp
           end    
         else
           if code == :nil
-            nil
+            "nil"
           elsif code == :T
             true
           elsif Symbol === code
