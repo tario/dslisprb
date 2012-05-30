@@ -29,7 +29,7 @@ class DsLisp
           if code == :nil
             "nil"
           elsif code == :T
-            true
+            "true"
           elsif Symbol === code
 #            "(local_variables.include?(#{name_convert(code)}) ? #{name_convert(code)} : nil)"
             name_convert(code).to_s 
