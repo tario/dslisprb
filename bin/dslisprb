@@ -40,9 +40,7 @@ else
         exit
       elsif cmd.split.first == "load"
         filename = cmd.split[1]
-        File.open(filename).each_line do |line|
-          print dslisp.evaluate(line.chop).lisp_inspect,"\n"
-        end
+        print dslisp.evaluate(File.open(filename).read.gsub("\n","")).lisp_inspect,"\n"
       else
         print dslisp.evaluate(cmd).lisp_inspect,"\n"
       end
