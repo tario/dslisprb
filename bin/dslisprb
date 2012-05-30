@@ -24,7 +24,13 @@ if ARGV[0]
 else
   # repl
   require 'readline'
-  print "enter lisp commands or quit to exit\n"
+  print "enter lisp commands and see the output
+enter quit to exit
+enter load to execute a source file. Example: load test.lisp
+
+Tip: use tab key to autocomplete variable/function names
+"
+
 
   stty_save = `stty -g`.chomp
   trap('INT') { system('stty', stty_save); exit }
