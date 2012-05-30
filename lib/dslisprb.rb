@@ -260,6 +260,12 @@ class Symbol
   end
 end
 
+class TrueClass
+  def lisp_inspect
+    "T"
+  end
+end
+
 class Array
   def lisp_inspect
     "(" + map(&:lisp_inspect).join(" ") + ")"  
