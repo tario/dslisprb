@@ -140,6 +140,10 @@ describe DsLisp, "ds lisp functions"  do
   it "should interpret nil symbol as nil" do
     DsLisp.new.evaluate(:nil).should be == nil
   end
+
+  it "should interpret T symbol as true" do
+    DsLisp.new.evaluate(:T).should be == true
+  end
 end
 
 
