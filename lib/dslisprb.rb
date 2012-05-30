@@ -121,6 +121,10 @@ class DsLisp
   end
 
   def parse(str)
+    if str =~ /^\s*$/
+      return :nil
+    end
+
     if str.count("(") != str.count(")")
       raise "Parentheshis count does not match, try adding parenthesis at the end of string :P"
     end

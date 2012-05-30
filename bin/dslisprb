@@ -31,16 +31,23 @@ else
 
   Readline.completion_append_character = " "
   Readline.completion_proc = proc do |s|
-    dslisp.variables.grep( /^#{Regexp.escape(s)}/ )
+    (dslisp.variables + ["quit", "load"]).grep( /^#{Regexp.escape(s)}/ )
   end
 
   while cmd = Readline.readline('> ', true)
-    if cmd == "quit"
-      exit
-    end
-
     begin
-      print dslisp.evaluate(cmd).lisp_inspect,"\n"
+      if cmd.split.first == "quit"
+        exit
+      elsif cmd.split.first == "load"
+        filename = cmd.split[1]
+        File.open(filename).each_line do |line|
+          print dslisp.evaluate(line.chop).lisp_inspect,"\n"
+        end
+      else
+        print dslisp.evaluate(cmd).lisp_inspect,"\n"
+      end
+    rescue SystemExit => e
+      raise e    
     rescue Exception => e
       p e
       print e.backtrace.join("\n"),"\n"
