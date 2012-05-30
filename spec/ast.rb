@@ -57,7 +57,7 @@ describe DsLisp, "ds lisp"  do
   end
 
   it "should parse quoted empty list" do
-    DsLisp.new.parse("'[]").should be == [:quote, []]
+    DsLisp.new.parse("'()").should be == [:quote, []]
   end
 end
 
