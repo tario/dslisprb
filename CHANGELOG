@@ -1,4 +1,12 @@
-0.0.3   fixed bug on boolean evaluation of empty list
+0.0.3   fixed interpretation of special nil and T symbols
+
+        implemented autocompletion of lisp variable names on dslisp console
+
+        fixed variable assignment stack to match lisp behavior (see spec/stack.rb)
+
+        fixed variable eval (before (if T x y) was evaluated as x symbol instead of the value associated to x)
+
+        fixed bug on boolean evaluation of empty list
 
 0.0.2   conditional structure if and cond   
 
