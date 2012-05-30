@@ -34,15 +34,21 @@ else
     (dslisp.variables + ["quit", "load"]).grep( /^#{Regexp.escape(s)}/ )
   end
 
-  while cmd = Readline.readline('> ', true)
+  accumulated = ""
+
+  while cmd = Readline.readline(accumulated == "" ? '> ' : '?> ', true)
     begin
       if cmd.split.first == "quit"
         exit
       elsif cmd.split.first == "load"
         filename = cmd.split[1]
-        print dslisp.evaluate(File.open(filename).read.gsub("\n","")).lisp_inspect,"\n"
+        print dslisp.evaluate(File.open(filename).read.gsub("\n"," ")).lisp_inspect,"\n"
       else
-        print dslisp.evaluate(cmd).lisp_inspect,"\n"
+        accumulated = accumulated + " " + cmd
+        if accumulated.count('(') - accumulated.count(')') == 0
+          print dslisp.evaluate(accumulated.gsub("\n"," ")).lisp_inspect,"\n"
+          accumulated = ""
+        end
       end
     rescue SystemExit => e
       raise e    
