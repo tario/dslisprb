@@ -52,8 +52,11 @@ Tip: use tab key to autocomplete variable/function names
       else
         accumulated = accumulated + " " + cmd
         if accumulated.count('(') - accumulated.count(')') == 0
-          print dslisp.evaluate(accumulated.gsub("\n"," ")).lisp_inspect,"\n"
-          accumulated = ""
+          begin
+            print dslisp.evaluate(accumulated.gsub("\n"," ")).lisp_inspect,"\n"
+          ensure
+            accumulated = ""
+          end        
         end
       end
     rescue SystemExit => e
