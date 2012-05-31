@@ -38,14 +38,14 @@ describe DsLisp, "ds lisp stack"  do
     dslisp.evaluate("(defun b (f x)
   (mapcar 
     (lambda (a)
-      (a x)
+      1
     )
 
     f
   )
 ) ".gsub("\n"," "))
 
-    dslisp.evaluate("(b (list car cdr) '(1 2 3))")
+    dslisp.evaluate("(b '(list car) '(1 2 3))")
     dslisp.evaluate("f").should be == 100
   end
 end
