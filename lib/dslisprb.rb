@@ -66,7 +66,7 @@ class DsLisp
 
       def lambda(code)
         arguments = code[1].map(&ToRuby.method(:name_convert)).map(&:to_s)
-        "(#{arguments.join(",")} = #{code[1].map{"nil"}.join(",")} ;lambda{|*x|
+        strcode = "(#{arguments.join(",")} = #{code[1].map{"nil"}.join(",")}; lambda{|*x|
             oldargs = [ #{arguments.join(",")} ] # save current bindings
             #{(0..arguments.size-1).map{|i| "#{arguments[i]} = x[#{i}]" }.join(";")} 
             begin
@@ -76,6 +76,8 @@ class DsLisp
             end
             aux
           }.lisp_inner_code(#{code.lisp_inspect.inspect}))"
+
+        "eval(#{strcode.inspect})"
       end
 
       def block(code)
