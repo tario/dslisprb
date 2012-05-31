@@ -10,5 +10,24 @@ describe DsLisp, "ds lisp stack"  do
     dslisp.evaluate("(set foo2 (lambda (x) (foo1 4)))")
     dslisp.evaluate("(foo2 3)").should be == 7
   end
+
+  it "should restore variable f when assigned to list" do
+
+    dslisp = DsLisp.new
+
+    dslisp.evaluate("(defun b (f x)
+  (mapcar 
+    (lambda (a)
+      (a x)
+    )
+
+    f
+  )
+) ".gsub("\n"," "))
+
+    dslisp.evaluate("(set f 100)")
+    dslisp.evaluate("(b (list car cdr) '(1 2 3))")
+    dslisp.evaluate("f").should be == 100
+  end
 end
 
