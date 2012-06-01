@@ -1,3 +1,9 @@
+0.0.4   Implemented apply and funcall 
+
+        Fix of variable assignments on lambda calla
+
+        Load of source files from console and multiline functions allowing line breaks
+
 0.0.3   fixed interpretation of special nil and T symbols
 
         implemented autocompletion of lisp variable names on dslisp console
