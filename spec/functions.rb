@@ -144,6 +144,31 @@ describe DsLisp, "ds lisp functions"  do
   it "should interpret T symbol as true" do
     DsLisp.new.evaluate(:T).should be == true
   end
+
+  it "should execute apply with symbol function" do
+    DsLisp.new.evaluate("(apply 'car '((1 2 3)))").should be == 1
+  end
+
+  it "should execute apply with lambda" do
+    DsLisp.new.evaluate("(apply (lambda (x) (car x)) '((1 2 3)))").should be == 1
+  end
+
+  it "should execute apply with quoted lambda" do
+    DsLisp.new.evaluate("(apply '(lambda (x) (car x)) '((1 2 3)))").should be == 1
+  end
+
+  it "should execute funcall with symbol function" do
+    DsLisp.new.evaluate("(funcall 'car '(1 2 3))").should be == 1
+  end
+
+  it "should execute apply with lambda" do
+    DsLisp.new.evaluate("(funcall (lambda (x) (car x)) '(1 2 3))").should be == 1
+  end
+
+  it "should execute apply with quoted lambda" do
+    DsLisp.new.evaluate("(funcall '(lambda (x) (car x)) '(1 2 3))").should be == 1
+  end
+
 end
 
 
