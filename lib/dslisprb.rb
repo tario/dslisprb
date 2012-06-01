@@ -207,7 +207,7 @@ private
       _nth = lambda{|index,list| list[index-1]}
 
       # list constructors
-      _cons = lambda{|element, list| [element]+list}
+      _cons = lambda{|element, list| [element]+list.to_a}
       _append = plus
       _list = lambda{|*args| args}
 
