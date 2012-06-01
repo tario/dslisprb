@@ -237,8 +237,8 @@ private
       as_function = lambda{|object|
         if Symbol === object
           eval(ToRuby.name_convert(object),@binding)
-        elsif not object.respond_to?(:call)
-          lambda{|*x| object}
+        elsif Array === object
+          evaluate(object)
         else
           object
         end
