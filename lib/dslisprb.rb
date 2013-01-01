@@ -31,8 +31,7 @@ class DsLisp
           elsif code == :T
             "true"
           elsif Symbol === code
-#            "(local_variables.include?(#{name_convert(code)}) ? #{name_convert(code)} : nil)"
-            name_convert(code).to_s 
+            "eval(\"#{name_convert(code).to_s}\")" 
           else
             code.inspect
           end  
