@@ -156,6 +156,8 @@ class DsLisp
     else
       if str =~ /^\s*\d+\s*$/
         str.to_i
+      elsif str =~ /^\s*nil\s*$/
+        nil
       else
         str.strip.to_sym
       end

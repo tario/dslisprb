@@ -53,7 +53,7 @@ describe DsLisp, "ds lisp"  do
   end
 
   it "should parse nil" do
-    DsLisp.new.parse("nil").should be == :nil
+    DsLisp.new.parse("nil").should be == nil
   end
 
   it "should parse quoted empty list" do
