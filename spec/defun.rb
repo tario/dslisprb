@@ -31,6 +31,17 @@ describe DsLisp, "ds lisp defun"  do
 
     dslisp.evaluate([:a, 3])
   end
+
+  it "should allow recursive funcall between two functions" do
+    dslisp = DsLisp.new
+    dslisp.evaluate([:block,
+            [:defun, :a, [:x], [:if, [:>, :x, 0], [:b, [:-, :x, 1] ] ,nil]],
+            [:defun, :b, [:x], [:if, [:>, :x, 0], [:a, [:-, :x, 1] ] ,nil]] 
+            ])
+
+    dslisp.evaluate([:a, 3])
+  end
+
 end
 
 
