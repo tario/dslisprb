@@ -22,6 +22,15 @@ describe DsLisp, "ds lisp defun"  do
             [:lambda_test, 1]
             ]).should be == 2
   end
+
+  it "should allow recursive funcall" do
+    dslisp = DsLisp.new
+    dslisp.evaluate([:block,
+            [:defun, :a, [:x], [:if, [:>, :x, 0], [:a, [:-, :x, 1] ] ,nil]] 
+            ])
+
+    dslisp.evaluate([:a, 3])
+  end
 end
 
 
