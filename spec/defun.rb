@@ -42,6 +42,10 @@ describe DsLisp, "ds lisp defun"  do
     dslisp.evaluate([:a, 3])
   end
 
+  it "nil on list should be evaluated nil" do
+    dslisp = DsLisp.new
+    dslisp.evaluate("(if (car (cdr '(1 nil 3))) 2 3)").should be == dslisp.evaluate("(if nil 2 3)")
+  end 
 end
 
 
