@@ -32,6 +32,10 @@ describe DsLisp, "ds lisp functions"  do
     DsLisp.new.evaluate([:list, 1, 2, 3]).should be == [1,2,3]
   end
 
+  it "should return nil for (cdr nil)" do
+    DsLisp.new.evaluate("(cdr nil)").should be == nil
+  end
+
   # type recognizers
   [:a, 1, [1,2,3,4], [], nil].each do |obj|
     result = (obj == nil or obj == []) ? true : nil
