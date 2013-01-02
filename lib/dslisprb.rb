@@ -133,7 +133,7 @@ class DsLisp
     end
 
     if matchdata = /^\s*\'(.*)\s*$/.match(str)
-      [:quote, parse(matchdata[1].sub("'",""))]
+      [:quote, parse(matchdata[1])]
     elsif matchdata = /^\s*\((.*)\)\s*$/.match(str)
       inside_code = matchdata[1]
       if inside_code =~ /^\s*$/
