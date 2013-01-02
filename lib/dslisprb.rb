@@ -260,6 +260,8 @@ private
       _apply = lambda{|function, arguments| as_function.call(function).call(*arguments) }    
       _funcall = lambda{|function, *arguments| as_function.call(function).call(*arguments) }
 
+      _reverse = :reverse.to_proc
+
       _p = lambda{|a| p a}  
     end
     @binding
