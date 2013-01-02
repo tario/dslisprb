@@ -215,8 +215,8 @@ private
 
         
       # list selectors
-      _car = lambda{|x| x.first}
-      _cdr = lambda{|x| x[1..-1]}
+      _car = lambda{|x| x ? x.first : nil}
+      _cdr = lambda{|x| x ? x[1..-1] : nil}
       _nth = lambda{|index,list| list[index-1]}
 
       # list constructors
