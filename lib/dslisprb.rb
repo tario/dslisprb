@@ -63,6 +63,11 @@ class DsLisp
          "
       end
 
+      def let(code)
+        newcode = [[:lambda, code[1].map(&:first), code[2]]] + code[1].map{|x|x[1]}
+        ToRuby.to_ruby(newcode)
+      end
+
       def lambda(code)
         arguments = code[1].map(&ToRuby.method(:name_convert)).map(&:to_s)
 
