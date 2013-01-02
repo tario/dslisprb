@@ -69,14 +69,21 @@ class DsLisp
       end
 
       def lambda(code)
-        arguments = code[1].map(&ToRuby.method(:name_convert)).map(&:to_s)
+        arguments = code[1].select{|x| x != :"&optional"}.map{|x| Array === x ? x[0] : x}.map(&ToRuby.method(:name_convert)).map(&:to_s)
+        x_optional = code[1].select{|x| x != :"&optional"}.map{|x|
+            if Array === x
+              ToRuby.to_ruby(x[1])
+            else
+              "nil"
+            end
+        }
 
         @count = (@count || 0) + 1
         oldargsvar = "oldargs_#{@count}"
 
         "(lambda{|*x|
             #{oldargsvar} = [ #{arguments.map{|z| "begin; #{z}; rescue; nil; end"}.join(",")} ] # save current bindings
-            #{(0..arguments.size-1).map{|i| "#{arguments[i]} = x[#{i}]" }.join(";")} 
+            #{(0..arguments.size-1).map{|i| "#{arguments[i]} = x[#{i}] || #{x_optional[i]}" }.join(";")} 
             begin
               aux = #{ToRuby.to_ruby(code[2])}
             ensure
