@@ -59,5 +59,9 @@ describe DsLisp, "ds lisp"  do
   it "should parse quoted empty list" do
     DsLisp.new.parse("'()").should be == [:quote, []]
   end
+
+  it "should parse nested quotes" do
+    DsLisp.new.parse("'(car '(1 2 3))").should be == [:quote, [:car, [:quote, [1, 2, 3]]]]
+  end
 end
 
