@@ -45,7 +45,21 @@ describe DsLisp, "ds lisp defun"  do
   it "nil on list should be evaluated nil" do
     dslisp = DsLisp.new
     dslisp.evaluate("(if (car (cdr '(1 nil 3))) 2 3)").should be == dslisp.evaluate("(if nil 2 3)")
-  end 
+  end
+
+  it "should accept optional arguments" do
+    dslisp = DsLisp.new
+    dslisp.evaluate("(defun foo (x &optional (y 4)) x)")
+    dslisp.evaluate("(foo 5)").should be == 5
+    dslisp.evaluate("(foo 6)").should be == 6
+  end  
+
+  it "should read optional arguments value" do
+    dslisp = DsLisp.new
+    dslisp.evaluate("(defun foo (x &optional (y 4)) y)")
+    dslisp.evaluate("(foo 5)").should be == 4
+    dslisp.evaluate("(foo 6)").should be == 4
+  end  
 end
 
 
