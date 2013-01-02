@@ -258,7 +258,9 @@ private
 
       _mapcar = lambda{|function, list| list.map(&as_function.call(function))}
       _apply = lambda{|function, arguments| as_function.call(function).call(*arguments) }    
-      _funcall = lambda{|function, *arguments| as_function.call(function).call(*arguments) }    
+      _funcall = lambda{|function, *arguments| as_function.call(function).call(*arguments) }
+
+      _p = lambda{|a| p a}  
     end
     @binding
   end
