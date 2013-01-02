@@ -1,3 +1,17 @@
+0.0.5   Fix list processing functions when recieve nil arguments
+
+        Optional arguments for functions
+
+        Implemented reverse function
+
+        Implemented inspect function
+
+        Implemented let
+
+        Fixed parse of nested quotes
+
+        Fixed reference of variables for recursive calls
+
 0.0.4   Implemented apply and funcall 
 
         Fix of variable assignments on lambda calla
