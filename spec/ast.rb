@@ -63,5 +63,9 @@ describe DsLisp, "ds lisp"  do
   it "should parse nested quotes" do
     DsLisp.new.parse("'(car '(1 2 3))").should be == [:quote, [:car, [:quote, [1, 2, 3]]]]
   end
+
+  it "should ignore comments" do
+    DsLisp.new.parse(";; comment\n1").should be == 1
+  end
 end
 
