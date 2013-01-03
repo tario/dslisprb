@@ -140,6 +140,10 @@ class DsLisp
       return parse(str.gsub(/;;.*$/,""))
     end
 
+    if str["\n"]
+      return parse(str.gsub("\n",""))
+    end
+
     if str.count("(") != str.count(")")
       raise "Parentheshis count does not match, try adding parenthesis at the end of string :P"
     end

@@ -48,7 +48,7 @@ Tip: use tab key to autocomplete variable/function names
         exit
       elsif cmd.split.first == "load"
         filename = cmd.split[1]
-        print dslisp.evaluate(File.open(filename).read.gsub("\n"," ")).lisp_inspect,"\n"
+        print dslisp.evaluate(File.open(filename).read).lisp_inspect,"\n"
       else
         accumulated = accumulated + " " + cmd
         if accumulated.count('(') - accumulated.count(')') == 0
