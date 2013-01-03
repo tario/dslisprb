@@ -136,8 +136,8 @@ class DsLisp
   end
 
   def parse(str)
-    if str =~ /^\s*$/
-      return :nil
+    if str =~ /;;.*$/
+      return parse(str.gsub(/;;.*$/,""))
     end
 
     if str.count("(") != str.count(")")
