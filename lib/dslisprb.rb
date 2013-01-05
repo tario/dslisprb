@@ -223,6 +223,9 @@ private
       _cdr = lambda{|x| x ? x[1..-1] : nil}
       _nth = lambda{|index,list| list[index-1]}
 
+      # nested list selectors
+      _caar = lambda{|x| x[0][0]}
+
       # list constructors
       _cons = lambda{|element, list| [element]+list.to_a}
       _append = plus
