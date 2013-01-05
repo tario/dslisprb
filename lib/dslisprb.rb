@@ -225,6 +225,9 @@ private
 
       # nested list selectors
       _caar = lambda{|x| x[0][0]}
+      _cadr = lambda{|x| x[1..-1][0]}
+      _cdar = lambda{|x| x[0][1..-1]}
+      _cddr = lambda{|x| x[1..-1][1..-1]}
 
       # list constructors
       _cons = lambda{|element, list| [element]+list.to_a}
