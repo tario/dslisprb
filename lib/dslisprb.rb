@@ -229,6 +229,15 @@ private
       _cdar = lambda{|x| x[0][1..-1]}
       _cddr = lambda{|x| x[1..-1][1..-1]}
 
+      _caaar = lambda{|x| x[0][0][0]}
+      _caadr = lambda{|x| x[1..-1][0][0]}
+      _cadar = lambda{|x| x[0][1..-1][0]}
+      _caddr = lambda{|x| x[1..-1][1..-1][0]}
+      _cdaar = lambda{|x| x[0][0][1..-1]}
+      _cdadr = lambda{|x| x[1..-1][0][1..-1]}
+      _cddar = lambda{|x| x[0][1..-1][1..-1]}
+      _cdddr = lambda{|x| x[1..-1][1..-1][1..-1]}
+
       # list constructors
       _cons = lambda{|element, list| [element]+list.to_a}
       _append = plus
