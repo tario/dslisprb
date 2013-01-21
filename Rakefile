@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'rake/testtask'
 require 'rdoc/task'
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require "rspec/core/rake_task"
 
 spec = Gem::Specification.new do |s|
@@ -32,7 +32,7 @@ Rake::RDocTask.new :rdoc do |rd|
 end
 
 desc 'Build Gem'
-Rake::GemPackageTask.new spec do |pkg|
+Gem::PackageTask.new spec do |pkg|
   pkg.need_tar = true
 end
 
