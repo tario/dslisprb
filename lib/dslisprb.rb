@@ -240,7 +240,7 @@ private
 
       # list constructors
       _cons = lambda{|element, list| [element]+list.to_a}
-      _append = plus
+      _append = lambda{|*args| args.inject(&:+)}
       _list = lambda{|*args| args}
 
       # recognizers
