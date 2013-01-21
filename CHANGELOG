@@ -1,3 +1,15 @@
+0.0.6   Support for multiple arguments on append
+
+        Fixed deprecated gem package rake task
+
+        Enclosed loaded code in a block (dslisprb ejecutable)
+
+        caaar, caadr, cadar, etc...
+
+        caar, cadr, cdar, cddr
+
+        support for lisp code commets
+
 0.0.5   Fix list processing functions when recieve nil arguments
 
         Optional arguments for functions
